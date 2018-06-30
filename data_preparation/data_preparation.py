@@ -19,7 +19,7 @@ def prepare_binary_ads(df, keys, value):
         .reset_index()
 
 
-def train_val_split(df, seed, train_prop=0.8):
+def train_val_split(df, seed, train_prop):
     train, test = train_test_split(df, test_size=1-train_prop, random_state=seed)
     ytrain = train.pop('cuisine')
     xtrain = train.values
@@ -27,6 +27,11 @@ def train_val_split(df, seed, train_prop=0.8):
     xtest = test.values
 
     return xtrain, ytrain, xtest, ytest
+
+
+def prepare(df, keys, value, seed=123131, train_prop=0.8):
+    binary_ads = prepare_binary_ads(df, keys, value)
+    return train_val_split(binary_ads, seed, train_prop)
 
 if __name__ == "__main__":
     df = pd.read_json("../data/train.json")
