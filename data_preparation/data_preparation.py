@@ -13,7 +13,10 @@ def explode(df, index_cols, list_col):
 
 def prepare_binary_ads(df, keys, value):
     df = explode(df, keys, value)
-    return df.pivot_table(index=keys, columns=value, aggfunc=[len], fill_value=0)
+    return pd.get_dummies(df, columns=['ingredient'], prefix='has')\
+        .groupby(['id', 'cuisine'])\
+        .sum(axis=1)\
+        .reset_index()
 
 
 if __name__ == "__main__":
