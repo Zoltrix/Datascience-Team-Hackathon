@@ -13,8 +13,8 @@ def explode(df, index_cols, list_col):
 
 def prepare_binary_ads(df, keys, value):
     df = explode(df, keys, value)
-    return pd.get_dummies(df, columns=['ingredient'], prefix='has')\
-        .groupby(['id', 'cuisine'])\
+    return pd.get_dummies(df, columns=[value], prefix='has')\
+        .groupby(keys)\
         .sum(axis=1)\
         .reset_index()
 
