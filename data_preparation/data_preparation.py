@@ -2,14 +2,13 @@ import pandas as pd
 
 
 def explode(df, index_cols, list_col):
-    rows = []
-    for i, row in df.iterrows():
-        for a in row[list_col]:
-            new_row = row[index_cols].values.tolist()
-            new_row.extend([a])
-            rows.append(new_row)
-
-    return pd.DataFrame(rows, columns=df.columns)
+    return df\
+        .set_index(index_cols) \
+        .apply(lambda row: pd.Series(row[list_col]), axis=1) \
+        .stack() \
+        .reset_index(level=2, drop=True) \
+        .to_frame(list_col) \
+        .reset_index()
 
 
 def prepare_binary_ads(df, keys, value):
