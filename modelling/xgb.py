@@ -32,7 +32,7 @@ if __name__ == "__main__":
     from loading.load_data import load_raw_data
     from data_preparation.data_preparation import prepare
     df = load_raw_data("../data/train.json")
-    cProfile.run("prepare(df[:1000], ['id', 'cuisine'], 'ingredients')")
+    cProfile.run("prepare(df[:1000])")
     #xtrain, ytrain, xtest, ytest = prepare(df, ['id', 'cuisine'], 'ingredients')
 
     #print(run(xtrain, ytrain, xtest, ytest, n_jobs=-1))

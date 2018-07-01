@@ -29,8 +29,8 @@ def train_val_split(df, seed, train_prop):
     return xtrain, ytrain, xtest, ytest
 
 
-def prepare(df, keys, value, seed=123131, train_prop=0.8):
-    binary_ads = prepare_binary_ads(df, keys, value)
+def prepare(df, seed=123131, train_prop=0.8):
+    binary_ads = prepare_binary_ads(df)
     return train_val_split(binary_ads, seed, train_prop)
 
 if __name__ == "__main__":
