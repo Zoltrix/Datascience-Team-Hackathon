@@ -7,7 +7,7 @@ def prepare_binary_ads(df):
 
     binary_ads = np.ndarray((len(df), len(ingredients)))
 
-    id_columns = df[['cuisine', 'id']].values
+    id_columns = df['cuisine'].values
 
     def fill_ingredients(row):
         for ingredient in row.ingredients:
@@ -17,7 +17,7 @@ def prepare_binary_ads(df):
     df.apply(fill_ingredients, axis=1)
 
     return pd.DataFrame(data=np.column_stack((id_columns, binary_ads)),
-                        index=df.index, columns=['cuisine', 'id'] + ingredients)
+                        index=df.index, columns=['cuisine'] + ingredients)
 
 def train_val_split(df, seed, train_prop):
     train, test = train_test_split(df, test_size=1-train_prop, random_state=seed)
